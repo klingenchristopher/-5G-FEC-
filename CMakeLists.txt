@@ -9,8 +9,10 @@ option(ENABLE_TESTS "Build unit tests" ON)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-# TODO: add subdirectories when sources are ready
-# add_subdirectory(src)
-# if(ENABLE_TESTS)
-#   add_subdirectory(tests)
-# endif
+# 添加源代码目录
+add_subdirectory(src)
+
+# 如果启用测试，添加测试目录
+if(ENABLE_TESTS)
+  # add_subdirectory(tests)
+endif()

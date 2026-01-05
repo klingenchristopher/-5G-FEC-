@@ -1,3 +1,157 @@
+# 5G-MPQUIC-FEC-Fusion
+
+> 基于多路径QUIC与前向纠错码的5G网络传输优化系统
+
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
+[![License](https://img.shields.io/badge/license-MIT-blue)]()
+[![C++](https://img.shields.io/badge/C++-17-blue)]()
+
+## 🎯 项目简介
+
+本项目实现了一个融合多路径QUIC (MPQUIC) 和前向纠错码 (FEC) 的5G网络传输优化系统，针对复杂5G网络环境（如边防哨所、近海港口等）中的信号弱、丢包严重等问题，提供低时延、高可靠的数据传输方案。
+
+### 核心特性
+
+- 🚀 **多路径调度**：基于在线凸优化(OCO)算法的智能路径调度
+- 🛡️ **FEC保护**：轻量级Reed-Solomon纠删码，支持动态冗余调整
+- 📊 **零拷贝架构**：高效的内存管理和数据传输
+- 🔧 **易于集成**：模块化设计，可与liblsquic等QUIC协议栈集成
+
+## 📁 项目结构
+
+```
+5G-MPQUIC-FEC-Fusion/
+├── cmake/                  # CMake模块
+├── docs/                   # 文档
+│   ├── QUICKSTART.md      # 快速开始指南
+│   └── README.md          # 设计文档
+├── experiments/            # 实验脚本与数据
+│   ├── traces/            # 5G链路Trace文件
+│   └── scripts/           # Python分析脚本
+├── include/               # 公共头文件
+│   ├── fec_encoder.hpp    # FEC编码器
+│   ├── path_scheduler.hpp # 路径调度器
+│   ├── buffer_manager.hpp # 缓冲区管理
+│   └── logger.hpp         # 日志工具
+├── src/
+│   ├── core/              # 核心算法实现
+│   │   ├── fec/           # FEC实现
+│   │   └── scheduler/     # 路径调度器
+│   ├── common/            # 通用工具类
+│   └── demo_example.cpp   # 演示程序
+├── tests/                 # 单元测试
+├── CMakeLists.txt         # 根构建文件
+└── README.md
+```
+
+## 🚀 快速开始
+
+### 环境要求
+
+- CMake >= 3.16
+- C++17 编译器 (GCC 7+, Clang 5+)
+- Linux/macOS
+
+### 编译
+
+```bash
+# 克隆项目
+git clone https://github.com/klingenchristopher/-5G-FEC-.git
+cd -5G-FEC-
+
+# 编译
+mkdir build && cd build
+cmake ..
+make -j$(nproc)
+```
+
+### 运行演示
+
+```bash
+./bin/demo_example
+```
+
+演示程序将展示：
+1. FEC编码/解码过程
+2. 多路径智能调度
+3. 零拷贝缓冲区管理
+4. 综合传输场景模拟
+
+详见：[快速开始指南](docs/QUICKSTART.md)
+
+## 📊 演示结果
+
+```
+=================================================
+  5G-MPQUIC-FEC-Fusion 系统演示
+  多路径QUIC + 前向纠错码 (FEC)
+=================================================
+
+========== FEC编码演示 ==========
+✓ 成功恢复 4 个数据块（模拟丢失2个块）
+
+========== 路径调度演示 ==========
+初始路径权重：
+  路径 0: 51.42% (RTT=20ms, Loss=1%)
+  路径 1: 24.41% (RTT=50ms, Loss=5%)
+  路径 2: 24.17% (RTT=100ms, Loss=15%)
+
+========== 综合场景演示 ==========
+✓ FEC保护成功！虽然丢失 2 个块，但可以完整恢复数据
+```
+
+## 🔬 技术架构
+
+### 1. FEC编码器
+- 基于Reed-Solomon纠删码
+- 支持灵活的k/m配置（k个数据块，m个冗余块）
+- 可容忍任意m个块丢失
+
+### 2. 路径调度器
+- 使用在线凸优化(OCO)算法
+- 综合考虑RTT、丢包率、带宽
+- 毫秒级动态权重调整
+
+### 3. 零拷贝缓冲区
+- 内存池管理
+- 移动语义支持
+- 避免不必要的数据拷贝
+
+## 📖 使用示例
+
+```cpp
+#include "fec_encoder.hpp"
+#include "path_scheduler.hpp"
+
+// 创建FEC编码器：4个数据块，2个冗余块
+mpquic_fec::FECEncoder encoder(4, 2, 1024);
+
+// 编码数据
+auto parity_blocks = encoder.encode(data_blocks);
+
+// 创建路径调度器
+mpquic_fec::PathScheduler scheduler;
+
+// 更新路径状态
+PathState path{0, 20.0, 0.01, 100.0, 0, 0};
+scheduler.update_path_state(path);
+
+// 选择最优路径
+uint32_t selected = scheduler.select_path(1400);
+```
+
+## 🧪 测试与验证
+
+```bash
+# 运行单元测试（待实现）
+cd build
+ctest -V
+```
+
+## 📚 相关论文
+
+---
+
 # 硕士研究生学位论文开题报告
 
 ## 一、 论文选题依据
