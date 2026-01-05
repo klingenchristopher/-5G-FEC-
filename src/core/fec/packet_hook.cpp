@@ -20,7 +20,7 @@ FECGroupManager::FECGroupManager(uint32_t default_k, uint32_t default_m,
 }
 
 uint64_t FECGroupManager::add_source_packet(const PendingPacket& packet) {
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::lock_guard<std::recursive_mutex> lock(mutex_);
     
     // 添加到当前组
     current_group_->source_packets.push_back(packet);
@@ -49,7 +49,7 @@ uint64_t FECGroupManager::add_source_packet(const PendingPacket& packet) {
 }
 
 std::shared_ptr<EncodingGroup> FECGroupManager::get_encoded_group(uint64_t group_id) {
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::lock_guard<std::recursive_mutex> lock(mutex_);
     auto it = encoded_groups_.find(group_id);
     if (it != encoded_groups_.end()) {
         return it->second;
@@ -58,7 +58,7 @@ std::shared_ptr<EncodingGroup> FECGroupManager::get_encoded_group(uint64_t group
 }
 
 std::vector<uint64_t> FECGroupManager::flush_pending_groups() {
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::lock_guard<std::recursive_mutex> lock(mutex_);
     std::vector<uint64_t> flushed_ids;
     
     // 如果当前组有数据但不满k个，强制编码
@@ -87,7 +87,7 @@ std::vector<uint64_t> FECGroupManager::flush_pending_groups() {
 }
 
 void FECGroupManager::update_coding_params(uint32_t k, uint32_t m) {
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::lock_guard<std::recursive_mutex> lock(mutex_);
     
     if (k != current_k_ || m != current_m_) {
         LOG_INFO("Updating FEC params: k=", k, ", m=", m, 
@@ -105,7 +105,7 @@ void FECGroupManager::update_coding_params(uint32_t k, uint32_t m) {
 }
 
 void FECGroupManager::cleanup_old_groups(uint64_t before_group_id) {
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::lock_guard<std::recursive_mutex> lock(mutex_);
     
     auto it = encoded_groups_.begin();
     while (it != encoded_groups_.end()) {
@@ -261,7 +261,7 @@ PacketReceiveHook::PacketReceiveHook() {
 }
 
 std::vector<std::vector<uint8_t>> PacketReceiveHook::on_frame_received(const FECFrame& frame) {
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::lock_guard<std::recursive_mutex> lock(mutex_);
     
     uint64_t group_id = frame.header.group_id;
     
@@ -294,7 +294,7 @@ std::vector<std::vector<uint8_t>> PacketReceiveHook::on_frame_received(const FEC
 }
 
 bool PacketReceiveHook::can_decode_group(uint64_t group_id) {
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::lock_guard<std::recursive_mutex> lock(mutex_);
     auto it = received_groups_.find(group_id);
     if (it != received_groups_.end()) {
         return it->second.received_frames.size() >= it->second.info.k;

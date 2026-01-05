@@ -101,8 +101,8 @@ private:
     // 下一个组ID
     uint64_t next_group_id_;
     
-    // 线程安全
-    std::mutex mutex_;
+    // 线程安全（使用递归互斥锁以支持 update_coding_params 调用 flush_pending_groups）
+    std::recursive_mutex mutex_;
     
     // 执行FEC编码
     void perform_encoding(std::shared_ptr<EncodingGroup> group);
@@ -195,7 +195,7 @@ private:
     };
     
     std::map<uint64_t, ReceivedGroup> received_groups_;
-    std::mutex mutex_;
+    std::recursive_mutex mutex_;
     
     // 解码器映射（按k,m缓存）
     std::map<std::pair<uint32_t, uint32_t>, std::unique_ptr<FECDecoder>> decoders_;
