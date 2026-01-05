@@ -130,6 +130,19 @@ demo_example/fast:
 .PHONY : demo_example/fast
 
 #=============================================================================
+# Target rules for targets named demo_integrated_fec
+
+# Build rule for target.
+demo_integrated_fec: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 demo_integrated_fec
+.PHONY : demo_integrated_fec
+
+# fast build rule for target.
+demo_integrated_fec/fast:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/demo_integrated_fec.dir/build.make src/CMakeFiles/demo_integrated_fec.dir/build
+.PHONY : demo_integrated_fec/fast
+
+#=============================================================================
 # Target rules for targets named mpquic_fec_core
 
 # Build rule for target.
@@ -151,6 +164,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... demo_example"
+	@echo "... demo_integrated_fec"
 	@echo "... mpquic_fec_core"
 .PHONY : help
 
