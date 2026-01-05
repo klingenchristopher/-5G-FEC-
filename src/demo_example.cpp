@@ -71,9 +71,23 @@ void demo_path_scheduling() {
     PathScheduler scheduler;
     
     // 模拟3条5G链路
-    PathState path1{0, 20.0, 0.01, 100.0, 0, 0};   // 低延迟，低丢包
-    PathState path2{1, 50.0, 0.05, 50.0, 0, 0};    // 中延迟，中丢包
-    PathState path3{2, 100.0, 0.15, 20.0, 0, 0};   // 高延迟，高丢包
+    PathState path1;
+    path1.path_id = 0;
+    path1.rtt_ms = 20.0;
+    path1.loss_rate = 0.01;
+    path1.bandwidth_mbps = 100.0;
+    
+    PathState path2;
+    path2.path_id = 1;
+    path2.rtt_ms = 50.0;
+    path2.loss_rate = 0.05;
+    path2.bandwidth_mbps = 50.0;
+    
+    PathState path3;
+    path3.path_id = 2;
+    path3.rtt_ms = 100.0;
+    path3.loss_rate = 0.15;
+    path3.bandwidth_mbps = 20.0;
     
     scheduler.update_path_state(path1);
     scheduler.update_path_state(path2);
@@ -149,9 +163,23 @@ void demo_integrated_scenario() {
     PathScheduler scheduler;
     
     // 配置3条路径（模拟不同的5G基站/链路）
-    PathState path1{0, 15.0, 0.01, 150.0, 0, 0};   // 优质链路
-    PathState path2{1, 40.0, 0.08, 80.0, 0, 0};    // 普通链路
-    PathState path3{2, 90.0, 0.20, 30.0, 0, 0};    // 差质链路
+    PathState path1;
+    path1.path_id = 0;
+    path1.rtt_ms = 15.0;
+    path1.loss_rate = 0.01;
+    path1.bandwidth_mbps = 150.0;
+    
+    PathState path2;
+    path2.path_id = 1;
+    path2.rtt_ms = 40.0;
+    path2.loss_rate = 0.08;
+    path2.bandwidth_mbps = 80.0;
+    
+    PathState path3;
+    path3.path_id = 2;
+    path3.rtt_ms = 90.0;
+    path3.loss_rate = 0.20;
+    path3.bandwidth_mbps = 30.0;
     
     scheduler.update_path_state(path1);
     scheduler.update_path_state(path2);

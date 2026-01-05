@@ -79,6 +79,7 @@ clean: src/clean
 
 # Recursive "all" directory target.
 src/all: src/CMakeFiles/demo_example.dir/all
+src/all: src/CMakeFiles/demo_integrated_fec.dir/all
 src/all: src/core/all
 .PHONY : src/all
 
@@ -88,6 +89,7 @@ src/preinstall: src/core/preinstall
 
 # Recursive "clean" directory target.
 src/clean: src/CMakeFiles/demo_example.dir/clean
+src/clean: src/CMakeFiles/demo_integrated_fec.dir/clean
 src/clean: src/core/clean
 .PHONY : src/clean
 
@@ -118,7 +120,7 @@ src/CMakeFiles/demo_example.dir/all: src/core/CMakeFiles/mpquic_fec_core.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/demo_example.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/-5G-FEC-/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/-5G-FEC-/build/CMakeFiles 10
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/demo_example.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/-5G-FEC-/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/demo_example.dir/rule
@@ -133,18 +135,44 @@ src/CMakeFiles/demo_example.dir/clean:
 .PHONY : src/CMakeFiles/demo_example.dir/clean
 
 #=============================================================================
+# Target rules for target src/CMakeFiles/demo_integrated_fec.dir
+
+# All Build rule for target.
+src/CMakeFiles/demo_integrated_fec.dir/all: src/core/CMakeFiles/mpquic_fec_core.dir/all
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/demo_integrated_fec.dir/build.make src/CMakeFiles/demo_integrated_fec.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/demo_integrated_fec.dir/build.make src/CMakeFiles/demo_integrated_fec.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/workspaces/-5G-FEC-/build/CMakeFiles --progress-num=3,4 "Built target demo_integrated_fec"
+.PHONY : src/CMakeFiles/demo_integrated_fec.dir/all
+
+# Build rule for subdir invocation for target.
+src/CMakeFiles/demo_integrated_fec.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/-5G-FEC-/build/CMakeFiles 10
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/demo_integrated_fec.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/-5G-FEC-/build/CMakeFiles 0
+.PHONY : src/CMakeFiles/demo_integrated_fec.dir/rule
+
+# Convenience name for target.
+demo_integrated_fec: src/CMakeFiles/demo_integrated_fec.dir/rule
+.PHONY : demo_integrated_fec
+
+# clean rule for target.
+src/CMakeFiles/demo_integrated_fec.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/demo_integrated_fec.dir/build.make src/CMakeFiles/demo_integrated_fec.dir/clean
+.PHONY : src/CMakeFiles/demo_integrated_fec.dir/clean
+
+#=============================================================================
 # Target rules for target src/core/CMakeFiles/mpquic_fec_core.dir
 
 # All Build rule for target.
 src/core/CMakeFiles/mpquic_fec_core.dir/all:
 	$(MAKE) $(MAKESILENT) -f src/core/CMakeFiles/mpquic_fec_core.dir/build.make src/core/CMakeFiles/mpquic_fec_core.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/core/CMakeFiles/mpquic_fec_core.dir/build.make src/core/CMakeFiles/mpquic_fec_core.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/workspaces/-5G-FEC-/build/CMakeFiles --progress-num=3,4,5,6 "Built target mpquic_fec_core"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/workspaces/-5G-FEC-/build/CMakeFiles --progress-num=5,6,7,8,9,10,11,12 "Built target mpquic_fec_core"
 .PHONY : src/core/CMakeFiles/mpquic_fec_core.dir/all
 
 # Build rule for subdir invocation for target.
 src/core/CMakeFiles/mpquic_fec_core.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/-5G-FEC-/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/-5G-FEC-/build/CMakeFiles 8
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/core/CMakeFiles/mpquic_fec_core.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/-5G-FEC-/build/CMakeFiles 0
 .PHONY : src/core/CMakeFiles/mpquic_fec_core.dir/rule

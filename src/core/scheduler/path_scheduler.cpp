@@ -1,4 +1,5 @@
 #include "path_scheduler.hpp"
+#include "oco_controller.hpp"
 #include "logger.hpp"
 #include <algorithm>
 #include <numeric>
@@ -64,6 +65,126 @@ uint32_t PathScheduler::select_path(uint32_t packet_size) {
     }
 
     return path_ids.back();
+}
+
+uint32_t PathScheduler::select_source_path(uint32_t packet_size) {
+    if (paths_.empty()) {
+        throw std::runtime_error("No paths available");
+    }
+    
+    // 为源包选择最优路径：优先考虑低RTT和低丢包率
+    uint32_t best_path = paths_.begin()->first;
+    double best_score = -1e9;
+    
+    for (const auto& [path_id, state] : paths_) {
+        // 评分：低RTT + 低丢包率 + 高带宽
+        double score = -0.4 * state.rtt_ms                   // RTT权重更高
+                      -0.5 * state.loss_rate * 1000
+                      + 0.1 * state.bandwidth_mbps;
+        
+        if (score > best_score) {
+            best_score = score;
+            best_path = path_id;
+        }
+    }
+    
+    LOG_DEBUG("Selected source path: ", best_path, " (score=", best_score, ")");
+    return best_path;
+}
+
+uint32_t PathScheduler::select_repair_path(uint32_t source_path_id, uint32_t packet_size) {
+    if (paths_.empty()) {
+        throw std::runtime_error("No paths available");
+    }
+    
+    if (paths_.size() == 1) {
+        return paths_.begin()->first;  // 只有一条路径
+    }
+    
+    // 策略：选择与源路径相关性最低的路径
+    uint32_t repair_path = find_least_correlated_path(source_path_id);
+    
+    // 如果找到的路径与源路径相同（只有一条路径），则返回源路径
+    if (repair_path == source_path_id && paths_.size() > 1) {
+        // 选择除源路径外的第一条可用路径
+        for (const auto& [path_id, _] : paths_) {
+            if (path_id != source_path_id) {
+                repair_path = path_id;
+                break;
+            }
+        }
+    }
+    
+    double correlation = get_path_correlation(source_path_id, repair_path);
+    LOG_DEBUG("Selected repair path: ", repair_path, " for source path ", source_path_id,
+              " (correlation=", correlation, ")");
+    
+    return repair_path;
+}
+
+void PathScheduler::set_oco_controller(std::shared_ptr<OCORedundancyController> controller) {
+    oco_controller_ = controller;
+    LOG_INFO("OCO controller attached to PathScheduler");
+}
+
+void PathScheduler::update_path_correlation(uint32_t path_i, uint32_t path_j, double correlation) {
+    auto key = std::make_pair(std::min(path_i, path_j), std::max(path_i, path_j));
+    path_correlations_[key] = correlation;
+    
+    // 如果有OCO控制器，同步更新
+    if (oco_controller_) {
+        oco_controller_->update_loss_correlation(path_i, path_j, correlation);
+    }
+    
+    LOG_DEBUG("Updated path correlation: ", path_i, " <-> ", path_j, " = ", correlation);
+}
+
+bool PathScheduler::is_path_available(uint32_t path_id) const {
+    auto it = paths_.find(path_id);
+    if (it == paths_.end()) {
+        return false;
+    }
+    
+    // 检查路径是否处于可用状态（丢包率不太高，带宽充足）
+    const auto& state = it->second;
+    return state.loss_rate < 0.5 && state.bandwidth_mbps > 0.1;
+}
+
+double PathScheduler::get_path_correlation(uint32_t path_i, uint32_t path_j) const {
+    if (path_i == path_j) {
+        return 1.0;  // 自相关
+    }
+    
+    auto key = std::make_pair(std::min(path_i, path_j), std::max(path_i, path_j));
+    auto it = path_correlations_.find(key);
+    if (it != path_correlations_.end()) {
+        return it->second;
+    }
+    
+    return 0.0;  // 默认假设独立
+}
+
+uint32_t PathScheduler::find_least_correlated_path(uint32_t path_id) const {
+    if (paths_.size() <= 1) {
+        return path_id;
+    }
+    
+    double min_correlation = 2.0;
+    uint32_t best_path = path_id;
+    
+    for (const auto& [candidate_id, _] : paths_) {
+        if (candidate_id == path_id) {
+            continue;
+        }
+        
+        double corr = std::abs(get_path_correlation(path_id, candidate_id));
+        if (corr < min_correlation) {
+            min_correlation = corr;
+            best_path = candidate_id;
+        }
+    }
+    
+    return best_path;
 }
 
 std::map<uint32_t, double> PathScheduler::get_path_weights() const {

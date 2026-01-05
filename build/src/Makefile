@@ -130,6 +130,20 @@ demo_example/fast:
 	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/demo_example.dir/build.make src/CMakeFiles/demo_example.dir/build
 .PHONY : demo_example/fast
 
+# Convenience name for target.
+src/CMakeFiles/demo_integrated_fec.dir/rule:
+	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/demo_integrated_fec.dir/rule
+.PHONY : src/CMakeFiles/demo_integrated_fec.dir/rule
+
+# Convenience name for target.
+demo_integrated_fec: src/CMakeFiles/demo_integrated_fec.dir/rule
+.PHONY : demo_integrated_fec
+
+# fast build rule for target.
+demo_integrated_fec/fast:
+	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/demo_integrated_fec.dir/build.make src/CMakeFiles/demo_integrated_fec.dir/build
+.PHONY : demo_integrated_fec/fast
+
 demo_example.o: demo_example.cpp.o
 .PHONY : demo_example.o
 
@@ -154,6 +168,30 @@ demo_example.cpp.s:
 	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/demo_example.dir/build.make src/CMakeFiles/demo_example.dir/demo_example.cpp.s
 .PHONY : demo_example.cpp.s
 
+demo_integrated_fec.o: demo_integrated_fec.cpp.o
+.PHONY : demo_integrated_fec.o
+
+# target to build an object file
+demo_integrated_fec.cpp.o:
+	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/demo_integrated_fec.dir/build.make src/CMakeFiles/demo_integrated_fec.dir/demo_integrated_fec.cpp.o
+.PHONY : demo_integrated_fec.cpp.o
+
+demo_integrated_fec.i: demo_integrated_fec.cpp.i
+.PHONY : demo_integrated_fec.i
+
+# target to preprocess a source file
+demo_integrated_fec.cpp.i:
+	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/demo_integrated_fec.dir/build.make src/CMakeFiles/demo_integrated_fec.dir/demo_integrated_fec.cpp.i
+.PHONY : demo_integrated_fec.cpp.i
+
+demo_integrated_fec.s: demo_integrated_fec.cpp.s
+.PHONY : demo_integrated_fec.s
+
+# target to generate assembly for a file
+demo_integrated_fec.cpp.s:
+	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/demo_integrated_fec.dir/build.make src/CMakeFiles/demo_integrated_fec.dir/demo_integrated_fec.cpp.s
+.PHONY : demo_integrated_fec.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -163,9 +201,13 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... demo_example"
+	@echo "... demo_integrated_fec"
 	@echo "... demo_example.o"
 	@echo "... demo_example.i"
 	@echo "... demo_example.s"
+	@echo "... demo_integrated_fec.o"
+	@echo "... demo_integrated_fec.i"
+	@echo "... demo_integrated_fec.s"
 .PHONY : help
 
 

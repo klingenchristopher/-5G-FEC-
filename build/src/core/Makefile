@@ -178,6 +178,102 @@ fec/fec_encoder.cpp.s:
 	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f src/core/CMakeFiles/mpquic_fec_core.dir/build.make src/core/CMakeFiles/mpquic_fec_core.dir/fec/fec_encoder.cpp.s
 .PHONY : fec/fec_encoder.cpp.s
 
+fec/fec_frame.o: fec/fec_frame.cpp.o
+.PHONY : fec/fec_frame.o
+
+# target to build an object file
+fec/fec_frame.cpp.o:
+	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f src/core/CMakeFiles/mpquic_fec_core.dir/build.make src/core/CMakeFiles/mpquic_fec_core.dir/fec/fec_frame.cpp.o
+.PHONY : fec/fec_frame.cpp.o
+
+fec/fec_frame.i: fec/fec_frame.cpp.i
+.PHONY : fec/fec_frame.i
+
+# target to preprocess a source file
+fec/fec_frame.cpp.i:
+	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f src/core/CMakeFiles/mpquic_fec_core.dir/build.make src/core/CMakeFiles/mpquic_fec_core.dir/fec/fec_frame.cpp.i
+.PHONY : fec/fec_frame.cpp.i
+
+fec/fec_frame.s: fec/fec_frame.cpp.s
+.PHONY : fec/fec_frame.s
+
+# target to generate assembly for a file
+fec/fec_frame.cpp.s:
+	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f src/core/CMakeFiles/mpquic_fec_core.dir/build.make src/core/CMakeFiles/mpquic_fec_core.dir/fec/fec_frame.cpp.s
+.PHONY : fec/fec_frame.cpp.s
+
+fec/packet_hook.o: fec/packet_hook.cpp.o
+.PHONY : fec/packet_hook.o
+
+# target to build an object file
+fec/packet_hook.cpp.o:
+	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f src/core/CMakeFiles/mpquic_fec_core.dir/build.make src/core/CMakeFiles/mpquic_fec_core.dir/fec/packet_hook.cpp.o
+.PHONY : fec/packet_hook.cpp.o
+
+fec/packet_hook.i: fec/packet_hook.cpp.i
+.PHONY : fec/packet_hook.i
+
+# target to preprocess a source file
+fec/packet_hook.cpp.i:
+	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f src/core/CMakeFiles/mpquic_fec_core.dir/build.make src/core/CMakeFiles/mpquic_fec_core.dir/fec/packet_hook.cpp.i
+.PHONY : fec/packet_hook.cpp.i
+
+fec/packet_hook.s: fec/packet_hook.cpp.s
+.PHONY : fec/packet_hook.s
+
+# target to generate assembly for a file
+fec/packet_hook.cpp.s:
+	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f src/core/CMakeFiles/mpquic_fec_core.dir/build.make src/core/CMakeFiles/mpquic_fec_core.dir/fec/packet_hook.cpp.s
+.PHONY : fec/packet_hook.cpp.s
+
+mpquic_fec_controller.o: mpquic_fec_controller.cpp.o
+.PHONY : mpquic_fec_controller.o
+
+# target to build an object file
+mpquic_fec_controller.cpp.o:
+	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f src/core/CMakeFiles/mpquic_fec_core.dir/build.make src/core/CMakeFiles/mpquic_fec_core.dir/mpquic_fec_controller.cpp.o
+.PHONY : mpquic_fec_controller.cpp.o
+
+mpquic_fec_controller.i: mpquic_fec_controller.cpp.i
+.PHONY : mpquic_fec_controller.i
+
+# target to preprocess a source file
+mpquic_fec_controller.cpp.i:
+	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f src/core/CMakeFiles/mpquic_fec_core.dir/build.make src/core/CMakeFiles/mpquic_fec_core.dir/mpquic_fec_controller.cpp.i
+.PHONY : mpquic_fec_controller.cpp.i
+
+mpquic_fec_controller.s: mpquic_fec_controller.cpp.s
+.PHONY : mpquic_fec_controller.s
+
+# target to generate assembly for a file
+mpquic_fec_controller.cpp.s:
+	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f src/core/CMakeFiles/mpquic_fec_core.dir/build.make src/core/CMakeFiles/mpquic_fec_core.dir/mpquic_fec_controller.cpp.s
+.PHONY : mpquic_fec_controller.cpp.s
+
+scheduler/oco_controller.o: scheduler/oco_controller.cpp.o
+.PHONY : scheduler/oco_controller.o
+
+# target to build an object file
+scheduler/oco_controller.cpp.o:
+	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f src/core/CMakeFiles/mpquic_fec_core.dir/build.make src/core/CMakeFiles/mpquic_fec_core.dir/scheduler/oco_controller.cpp.o
+.PHONY : scheduler/oco_controller.cpp.o
+
+scheduler/oco_controller.i: scheduler/oco_controller.cpp.i
+.PHONY : scheduler/oco_controller.i
+
+# target to preprocess a source file
+scheduler/oco_controller.cpp.i:
+	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f src/core/CMakeFiles/mpquic_fec_core.dir/build.make src/core/CMakeFiles/mpquic_fec_core.dir/scheduler/oco_controller.cpp.i
+.PHONY : scheduler/oco_controller.cpp.i
+
+scheduler/oco_controller.s: scheduler/oco_controller.cpp.s
+.PHONY : scheduler/oco_controller.s
+
+# target to generate assembly for a file
+scheduler/oco_controller.cpp.s:
+	cd /workspaces/-5G-FEC-/build && $(MAKE) $(MAKESILENT) -f src/core/CMakeFiles/mpquic_fec_core.dir/build.make src/core/CMakeFiles/mpquic_fec_core.dir/scheduler/oco_controller.cpp.s
+.PHONY : scheduler/oco_controller.cpp.s
+
 scheduler/path_scheduler.o: scheduler/path_scheduler.cpp.o
 .PHONY : scheduler/path_scheduler.o
 
@@ -217,6 +313,18 @@ help:
 	@echo "... fec/fec_encoder.o"
 	@echo "... fec/fec_encoder.i"
 	@echo "... fec/fec_encoder.s"
+	@echo "... fec/fec_frame.o"
+	@echo "... fec/fec_frame.i"
+	@echo "... fec/fec_frame.s"
+	@echo "... fec/packet_hook.o"
+	@echo "... fec/packet_hook.i"
+	@echo "... fec/packet_hook.s"
+	@echo "... mpquic_fec_controller.o"
+	@echo "... mpquic_fec_controller.i"
+	@echo "... mpquic_fec_controller.s"
+	@echo "... scheduler/oco_controller.o"
+	@echo "... scheduler/oco_controller.i"
+	@echo "... scheduler/oco_controller.s"
 	@echo "... scheduler/path_scheduler.o"
 	@echo "... scheduler/path_scheduler.i"
 	@echo "... scheduler/path_scheduler.s"

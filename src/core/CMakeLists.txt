@@ -3,7 +3,11 @@ cmake_minimum_required(VERSION 3.16)
 # 添加核心库
 add_library(mpquic_fec_core
     fec/fec_encoder.cpp
+    fec/fec_frame.cpp
+    fec/packet_hook.cpp
     scheduler/path_scheduler.cpp
+    scheduler/oco_controller.cpp
+    mpquic_fec_controller.cpp
     ../common/buffer_manager.cpp
 )
 
