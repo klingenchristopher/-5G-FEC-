@@ -80,17 +80,22 @@ clean: src/clean
 # Recursive "all" directory target.
 src/all: src/CMakeFiles/demo_example.dir/all
 src/all: src/CMakeFiles/demo_integrated_fec.dir/all
+src/all: src/CMakeFiles/demo_mpquic_real.dir/all
 src/all: src/core/all
+src/all: src/quic/all
 .PHONY : src/all
 
 # Recursive "preinstall" directory target.
 src/preinstall: src/core/preinstall
+src/preinstall: src/quic/preinstall
 .PHONY : src/preinstall
 
 # Recursive "clean" directory target.
 src/clean: src/CMakeFiles/demo_example.dir/clean
 src/clean: src/CMakeFiles/demo_integrated_fec.dir/clean
+src/clean: src/CMakeFiles/demo_mpquic_real.dir/clean
 src/clean: src/core/clean
+src/clean: src/quic/clean
 .PHONY : src/clean
 
 #=============================================================================
@@ -107,6 +112,21 @@ src/core/preinstall:
 # Recursive "clean" directory target.
 src/core/clean: src/core/CMakeFiles/mpquic_fec_core.dir/clean
 .PHONY : src/core/clean
+
+#=============================================================================
+# Directory level rules for directory src/quic
+
+# Recursive "all" directory target.
+src/quic/all: src/quic/CMakeFiles/mpquic_integration.dir/all
+.PHONY : src/quic/all
+
+# Recursive "preinstall" directory target.
+src/quic/preinstall:
+.PHONY : src/quic/preinstall
+
+# Recursive "clean" directory target.
+src/quic/clean: src/quic/CMakeFiles/mpquic_integration.dir/clean
+.PHONY : src/quic/clean
 
 #=============================================================================
 # Target rules for target src/CMakeFiles/demo_example.dir
@@ -161,13 +181,40 @@ src/CMakeFiles/demo_integrated_fec.dir/clean:
 .PHONY : src/CMakeFiles/demo_integrated_fec.dir/clean
 
 #=============================================================================
+# Target rules for target src/CMakeFiles/demo_mpquic_real.dir
+
+# All Build rule for target.
+src/CMakeFiles/demo_mpquic_real.dir/all: src/core/CMakeFiles/mpquic_fec_core.dir/all
+src/CMakeFiles/demo_mpquic_real.dir/all: src/quic/CMakeFiles/mpquic_integration.dir/all
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/demo_mpquic_real.dir/build.make src/CMakeFiles/demo_mpquic_real.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/demo_mpquic_real.dir/build.make src/CMakeFiles/demo_mpquic_real.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/workspaces/-5G-FEC-/build/CMakeFiles --progress-num=5,6 "Built target demo_mpquic_real"
+.PHONY : src/CMakeFiles/demo_mpquic_real.dir/all
+
+# Build rule for subdir invocation for target.
+src/CMakeFiles/demo_mpquic_real.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/-5G-FEC-/build/CMakeFiles 13
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/demo_mpquic_real.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/-5G-FEC-/build/CMakeFiles 0
+.PHONY : src/CMakeFiles/demo_mpquic_real.dir/rule
+
+# Convenience name for target.
+demo_mpquic_real: src/CMakeFiles/demo_mpquic_real.dir/rule
+.PHONY : demo_mpquic_real
+
+# clean rule for target.
+src/CMakeFiles/demo_mpquic_real.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/demo_mpquic_real.dir/build.make src/CMakeFiles/demo_mpquic_real.dir/clean
+.PHONY : src/CMakeFiles/demo_mpquic_real.dir/clean
+
+#=============================================================================
 # Target rules for target src/core/CMakeFiles/mpquic_fec_core.dir
 
 # All Build rule for target.
 src/core/CMakeFiles/mpquic_fec_core.dir/all:
 	$(MAKE) $(MAKESILENT) -f src/core/CMakeFiles/mpquic_fec_core.dir/build.make src/core/CMakeFiles/mpquic_fec_core.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/core/CMakeFiles/mpquic_fec_core.dir/build.make src/core/CMakeFiles/mpquic_fec_core.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/workspaces/-5G-FEC-/build/CMakeFiles --progress-num=5,6,7,8,9,10,11,12 "Built target mpquic_fec_core"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/workspaces/-5G-FEC-/build/CMakeFiles --progress-num=7,8,9,10,11,12,13,14 "Built target mpquic_fec_core"
 .PHONY : src/core/CMakeFiles/mpquic_fec_core.dir/all
 
 # Build rule for subdir invocation for target.
@@ -185,6 +232,32 @@ mpquic_fec_core: src/core/CMakeFiles/mpquic_fec_core.dir/rule
 src/core/CMakeFiles/mpquic_fec_core.dir/clean:
 	$(MAKE) $(MAKESILENT) -f src/core/CMakeFiles/mpquic_fec_core.dir/build.make src/core/CMakeFiles/mpquic_fec_core.dir/clean
 .PHONY : src/core/CMakeFiles/mpquic_fec_core.dir/clean
+
+#=============================================================================
+# Target rules for target src/quic/CMakeFiles/mpquic_integration.dir
+
+# All Build rule for target.
+src/quic/CMakeFiles/mpquic_integration.dir/all: src/core/CMakeFiles/mpquic_fec_core.dir/all
+	$(MAKE) $(MAKESILENT) -f src/quic/CMakeFiles/mpquic_integration.dir/build.make src/quic/CMakeFiles/mpquic_integration.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/quic/CMakeFiles/mpquic_integration.dir/build.make src/quic/CMakeFiles/mpquic_integration.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/workspaces/-5G-FEC-/build/CMakeFiles --progress-num=15,16,17 "Built target mpquic_integration"
+.PHONY : src/quic/CMakeFiles/mpquic_integration.dir/all
+
+# Build rule for subdir invocation for target.
+src/quic/CMakeFiles/mpquic_integration.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/-5G-FEC-/build/CMakeFiles 11
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/quic/CMakeFiles/mpquic_integration.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /workspaces/-5G-FEC-/build/CMakeFiles 0
+.PHONY : src/quic/CMakeFiles/mpquic_integration.dir/rule
+
+# Convenience name for target.
+mpquic_integration: src/quic/CMakeFiles/mpquic_integration.dir/rule
+.PHONY : mpquic_integration
+
+# clean rule for target.
+src/quic/CMakeFiles/mpquic_integration.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/quic/CMakeFiles/mpquic_integration.dir/build.make src/quic/CMakeFiles/mpquic_integration.dir/clean
+.PHONY : src/quic/CMakeFiles/mpquic_integration.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

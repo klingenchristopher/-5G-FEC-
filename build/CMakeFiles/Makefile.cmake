@@ -31,6 +31,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.28.3/CMakeSystem.cmake"
   "/workspaces/-5G-FEC-/src/CMakeLists.txt"
   "/workspaces/-5G-FEC-/src/core/CMakeLists.txt"
+  "/workspaces/-5G-FEC-/src/quic/CMakeLists.txt"
   )
 
 # The corresponding makefile is:
@@ -44,11 +45,14 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/core/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "src/quic/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "src/CMakeFiles/demo_example.dir/DependInfo.cmake"
   "src/CMakeFiles/demo_integrated_fec.dir/DependInfo.cmake"
+  "src/CMakeFiles/demo_mpquic_real.dir/DependInfo.cmake"
   "src/core/CMakeFiles/mpquic_fec_core.dir/DependInfo.cmake"
+  "src/quic/CMakeFiles/mpquic_integration.dir/DependInfo.cmake"
   )

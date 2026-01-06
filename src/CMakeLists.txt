@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 # 添加子目录
 add_subdirectory(core)
+add_subdirectory(quic)
 
 # 创建演示可执行文件
 add_executable(demo_example demo_example.cpp)
@@ -36,5 +37,24 @@ target_include_directories(demo_integrated_fec
 
 # 设置输出目录
 set_target_properties(demo_integrated_fec PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
+# 创建真实MPQUIC演示可执行文件
+add_executable(demo_mpquic_real demo_mpquic_real.cpp)
+
+target_link_libraries(demo_mpquic_real
+    PRIVATE
+        mpquic_fec_core
+        mpquic_integration
+)
+
+target_include_directories(demo_mpquic_real
+    PRIVATE
+        ${CMAKE_SOURCE_DIR}/include
+)
+
+# 设置输出目录
+set_target_properties(demo_mpquic_real PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )

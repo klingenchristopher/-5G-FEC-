@@ -143,6 +143,19 @@ demo_integrated_fec/fast:
 .PHONY : demo_integrated_fec/fast
 
 #=============================================================================
+# Target rules for targets named demo_mpquic_real
+
+# Build rule for target.
+demo_mpquic_real: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 demo_mpquic_real
+.PHONY : demo_mpquic_real
+
+# fast build rule for target.
+demo_mpquic_real/fast:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/demo_mpquic_real.dir/build.make src/CMakeFiles/demo_mpquic_real.dir/build
+.PHONY : demo_mpquic_real/fast
+
+#=============================================================================
 # Target rules for targets named mpquic_fec_core
 
 # Build rule for target.
@@ -155,6 +168,19 @@ mpquic_fec_core/fast:
 	$(MAKE) $(MAKESILENT) -f src/core/CMakeFiles/mpquic_fec_core.dir/build.make src/core/CMakeFiles/mpquic_fec_core.dir/build
 .PHONY : mpquic_fec_core/fast
 
+#=============================================================================
+# Target rules for targets named mpquic_integration
+
+# Build rule for target.
+mpquic_integration: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mpquic_integration
+.PHONY : mpquic_integration
+
+# fast build rule for target.
+mpquic_integration/fast:
+	$(MAKE) $(MAKESILENT) -f src/quic/CMakeFiles/mpquic_integration.dir/build.make src/quic/CMakeFiles/mpquic_integration.dir/build
+.PHONY : mpquic_integration/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -165,7 +191,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... demo_example"
 	@echo "... demo_integrated_fec"
+	@echo "... demo_mpquic_real"
 	@echo "... mpquic_fec_core"
+	@echo "... mpquic_integration"
 .PHONY : help
 
 

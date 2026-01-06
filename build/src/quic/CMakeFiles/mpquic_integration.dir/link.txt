@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmpquic_integration.a CMakeFiles/mpquic_integration.dir/mock_quic_connection.cpp.o CMakeFiles/mpquic_integration.dir/mpquic_manager.cpp.o
+/usr/bin/ranlib libmpquic_integration.a

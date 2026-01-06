@@ -68,16 +68,22 @@ make -j$(nproc)
 ### 运行演示
 
 ```bash
+# 运行基础算法演示（FEC、路径调度、缓冲区管理）
 ./bin/demo_example
+
+# 运行真实多路径QUIC+FEC传输演示 ⭐ 新增
+./bin/demo_mpquic_real
+
+# 运行集成FEC控制器演示
+./bin/demo_integrated_fec
 ```
 
 演示程序将展示：
-1. FEC编码/解码过程
-2. 多路径智能调度
-3. 零拷贝缓冲区管理
-4. 综合传输场景模拟
+1. **demo_example**: FEC编码/解码、多路径调度、缓冲区管理
+2. **demo_mpquic_real**: 完整的多路径QUIC+FEC端到端传输 ⭐
+3. **demo_integrated_fec**: FEC控制器和路径调度器集成
 
-详见：[快速开始指南](docs/QUICKSTART.md)
+详见：[快速开始指南](docs/QUICKSTART.md) | [liblsquic集成指南](docs/LSQUIC_INTEGRATION.md)
 
 ## 📊 演示结果
 
