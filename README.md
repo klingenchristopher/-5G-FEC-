@@ -76,14 +76,44 @@ make -j$(nproc)
 
 # 运行集成FEC控制器演示
 ./bin/demo_integrated_fec
+
+# 运行 OCO 自适应 FEC 仿真实验（方向A研究成果）⭐ 最新
+./bin/demo_oco_adaptive
 ```
 
 演示程序将展示：
 1. **demo_example**: FEC编码/解码、多路径调度、缓冲区管理
 2. **demo_mpquic_real**: 完整的多路径QUIC+FEC端到端传输 ⭐
 3. **demo_integrated_fec**: FEC控制器和路径调度器集成
+4. **demo_oco_adaptive**: OCO自适应冗余仿真，输出CSV，可用下方脚本可视化 ⭐ 最新
 
 详见：[快速开始指南](docs/QUICKSTART.md) | [liblsquic集成指南](docs/LSQUIC_INTEGRATION.md)
+
+## 📊 OCO 自适应仿真实验（最新进展）
+
+在仓库根目录下运行：
+
+```bash
+cd build && make demo_oco_adaptive && cd ..
+./build/bin/demo_oco_adaptive          # 输出 CSV 至 experiments/results/
+python3 experiments/scripts/plot_oco_results.py   # 生成三张图表
+```
+
+**实验结论（200步动态5G信道，三阶段：良好/恶化/恢复）**
+
+| 指标 | OCO 自适应 | 静态 FEC (k=4,m=2) | 无 FEC |
+|------|------------|-------------------|--------|
+| 平均冗余开销 (m/k) | **18 %** | 50 % | 0 % |
+| 平均有效编码率 | **85.4 %** | 66.7 % | 100 % |
+| 平均恢复成功率 | 95 % | 99 % | 94 % |
+
+OCO 自适应方案以 **64% 的冗余带宽节省**（18% vs 50%）换取接近静态 FEC 的恢复率（95% vs 99%），在良好信道阶段显著降低开销（OCO: 10% vs Static: 50%），在恶化阶段自动提升冗余率（OCO: 20–26% vs Static: 50%）。
+
+双路径丢包相关性分析：
+
+```bash
+python3 experiments/scripts/analyze_trace.py --output experiments/traces --dual-path
+```
 
 ## 📊 演示结果
 

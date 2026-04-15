@@ -33,6 +33,17 @@
    - [x] 综合场景演示
    - 位置：[src/demo_example.cpp](../src/demo_example.cpp)
 
+6. **OCO 自适应 FEC 仿真实验** ⭐ 新增
+   - [x] 200步动态5G信道模拟（三阶段：良好/恶化/恢复）
+   - [x] OCORedundancyController 驱动的自适应 (k, m) 决策
+   - [x] 蒙特卡洛 FEC 恢复率仿真（N=500 组/步）
+   - [x] CSV 数据导出（experiments/results/oco_simulation_results.csv）
+   - [x] Python 可视化：信道动态、OCO适应过程、性能对比图
+   - [x] 双路径丢包相关性分析（滑动窗口 Pearson ρ）
+   - 位置：[src/demo_oco_adaptive.cpp](../src/demo_oco_adaptive.cpp)
+   - 可视化：[experiments/scripts/plot_oco_results.py](../experiments/scripts/plot_oco_results.py)
+   - 相关性分析：[experiments/scripts/analyze_trace.py](../experiments/scripts/analyze_trace.py) `--dual-path`
+
 ### 构建系统
 
 - [x] CMake配置
@@ -68,12 +79,14 @@
 ### 中优先级
 
 4. **实验框架**
-   - [ ] 5G链路Trace回放器
+   - [x] OCO 自适应 FEC 仿真（200步动态信道）✅ 新完成
+   - [x] 双路径丢包相关性分析 ✅ 新完成
+   - [x] 性能指标采集（CSV + 三张图表）✅ 新完成
+   - [ ] 5G链路Trace回放器（真实 trace 文件解析）
    - [ ] tc-netem网络模拟脚本
-   - [ ] 性能指标采集
 
 5. **高级特性**
-   - [ ] 自适应FEC冗余率调整
+   - [x] 自适应FEC冗余率调整（OCO驱动，已通过仿真验证）✅ 新完成
    - [ ] 路径质量预测
    - [ ] 拥塞控制集成
 
@@ -106,10 +119,12 @@
 - 🔄 协议栈集成
 - 🔄 单元测试
 
-### Milestone 3: 实验验证 (计划中)
-- ⏳ Trace回放
-- ⏳ 性能测试
-- ⏳ 论文实验
+### Milestone 3: 实验验证 (进行中 🔄)
+- ✅ OCO 自适应 FEC 仿真（200步动态信道，三阶段模型）
+- ✅ 双路径丢包相关性分析
+- ✅ 性能指标可视化（3张图表）
+- ⏳ 真实 Trace 回放（接入实测5G数据）
+- ⏳ tc-netem 端到端实验
 
 ## 📝 注意事项
 
@@ -126,4 +141,4 @@
 
 ---
 
-最后更新：2026-01-05
+最后更新：2026-04-15

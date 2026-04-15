@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/demo_oco_adaptive.dir/link.d CMakeFiles/demo_oco_adaptive.dir/demo_oco_adaptive.cpp.o -o ../bin/demo_oco_adaptive  core/libmpquic_fec_core.a
