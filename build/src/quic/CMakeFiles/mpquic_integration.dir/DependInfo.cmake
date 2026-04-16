@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/workspaces/-5G-FEC-/src/quic/mock_quic_connection.cpp" "src/quic/CMakeFiles/mpquic_integration.dir/mock_quic_connection.cpp.o" "gcc" "src/quic/CMakeFiles/mpquic_integration.dir/mock_quic_connection.cpp.o.d"
-  "/workspaces/-5G-FEC-/src/quic/mpquic_manager.cpp" "src/quic/CMakeFiles/mpquic_integration.dir/mpquic_manager.cpp.o" "gcc" "src/quic/CMakeFiles/mpquic_integration.dir/mpquic_manager.cpp.o.d"
+  "/home/runner/work/-5G-FEC-/-5G-FEC-/src/quic/mock_quic_connection.cpp" "src/quic/CMakeFiles/mpquic_integration.dir/mock_quic_connection.cpp.o" "gcc" "src/quic/CMakeFiles/mpquic_integration.dir/mock_quic_connection.cpp.o.d"
+  "/home/runner/work/-5G-FEC-/-5G-FEC-/src/quic/mpquic_manager.cpp" "src/quic/CMakeFiles/mpquic_integration.dir/mpquic_manager.cpp.o" "gcc" "src/quic/CMakeFiles/mpquic_integration.dir/mpquic_manager.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

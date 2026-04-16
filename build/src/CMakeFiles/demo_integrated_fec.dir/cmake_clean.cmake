@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "../bin/demo_integrated_fec"
   "../bin/demo_integrated_fec.pdb"
+  "CMakeFiles/demo_integrated_fec.dir/link.d"
   "CMakeFiles/demo_integrated_fec.dir/demo_integrated_fec.cpp.o"
   "CMakeFiles/demo_integrated_fec.dir/demo_integrated_fec.cpp.o.d"
 )

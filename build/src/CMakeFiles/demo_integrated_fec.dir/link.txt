@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/demo_integrated_fec.dir/demo_integrated_fec.cpp.o -o ../bin/demo_integrated_fec  core/libmpquic_fec_core.a 
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/demo_integrated_fec.dir/link.d CMakeFiles/demo_integrated_fec.dir/demo_integrated_fec.cpp.o -o ../bin/demo_integrated_fec  core/libmpquic_fec_core.a

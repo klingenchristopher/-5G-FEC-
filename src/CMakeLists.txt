@@ -58,3 +58,20 @@ target_include_directories(demo_mpquic_real
 set_target_properties(demo_mpquic_real PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
+
+# OCO自适应FEC仿真实验（方向A）
+add_executable(demo_oco_adaptive demo_oco_adaptive.cpp)
+
+target_link_libraries(demo_oco_adaptive
+    PRIVATE
+        mpquic_fec_core
+)
+
+target_include_directories(demo_oco_adaptive
+    PRIVATE
+        ${CMAKE_SOURCE_DIR}/include
+)
+
+set_target_properties(demo_oco_adaptive PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)

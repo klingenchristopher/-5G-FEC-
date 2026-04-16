@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/demo_example.dir/demo_example.cpp.o -o ../bin/demo_example  core/libmpquic_fec_core.a 
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/demo_example.dir/link.d CMakeFiles/demo_example.dir/demo_example.cpp.o -o ../bin/demo_example  core/libmpquic_fec_core.a
