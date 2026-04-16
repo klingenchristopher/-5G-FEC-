@@ -4,6 +4,10 @@
 > **汇报人：** （填写姓名）  
 > **汇报日期：** 2026-04-15  
 > **项目仓库：** [klingenchristopher/-5G-FEC-](https://github.com/klingenchristopher/-5G-FEC-)
+>
+> **补充说明（2026-04-16）**  
+> - 实验图表生成脚本已修复字体/标题显示问题，导出图中的坐标轴与标题改为英文，避免中文字体缺失导致乱码。  
+> - 个人学习版详解文档：[`docs/OCO_SIMULATION_DETAILED_NOTES.md`](./OCO_SIMULATION_DETAILED_NOTES.md)
 
 ---
 

@@ -50,7 +50,7 @@ def load_csv(path: str) -> dict:
 # ── Helpers ──────────────────────────────────────────────────────────────────
 
 PHASE_COLORS = {1: '#d4ecd4', 2: '#fde8d8', 3: '#d4e4f7'}
-PHASE_LABELS = {1: '阶段1: 良好', 2: '阶段2: 恶化', 3: '阶段3: 恢复'}
+PHASE_LABELS = {1: 'Phase 1: Good', 2: 'Phase 2: Degraded', 3: 'Phase 3: Recovery'}
 
 
 def _shade_phases(ax, t, phase):
@@ -70,7 +70,7 @@ def _add_phase_legend(ax):
 
 
 def _save(fig, path: str):
-    fig.savefig(path, dpi=150, bbox_inches='tight')
+    fig.savefig(path, dpi=220, facecolor='white')
     print(f"  保存: {path}")
     plt.close(fig)
 
@@ -81,14 +81,14 @@ def plot_channel_dynamics(d: dict, out_dir: str):
     t = d['timestamp_s']
     phase = d['phase']
 
-    fig, axes = plt.subplots(3, 1, figsize=(12, 9), sharex=True)
-    fig.suptitle('图1: 5G 信道动态（双路径）', fontsize=14, fontweight='bold', y=0.98)
+    fig, axes = plt.subplots(3, 1, figsize=(12, 9), sharex=True, constrained_layout=True)
+    fig.suptitle('Figure 1: 5G Channel Dynamics (Dual Path)', fontsize=14, fontweight='bold')
 
     # — RTT ——————————————————————————————————————————————————————————————
     ax = axes[0]
     _shade_phases(ax, t, phase)
-    ax.plot(t, d['path0_rtt_ms'], color='#2196F3', lw=1.4, label='路径0 (5G NR)')
-    ax.plot(t, d['path1_rtt_ms'], color='#FF9800', lw=1.4, label='路径1 (Wi-Fi6)')
+    ax.plot(t, d['path0_rtt_ms'], color='#2196F3', lw=1.4, label='Path 0 (5G NR)')
+    ax.plot(t, d['path1_rtt_ms'], color='#FF9800', lw=1.4, label='Path 1 (Wi-Fi6)')
     ax.set_ylabel('RTT (ms)', fontsize=11)
     ax.legend(fontsize=9, loc='upper right')
     ax.grid(True, alpha=0.3)
@@ -97,10 +97,10 @@ def plot_channel_dynamics(d: dict, out_dir: str):
     # — Loss rate ————————————————————————————————————————————————————————
     ax = axes[1]
     _shade_phases(ax, t, phase)
-    ax.plot(t, d['path0_loss_pct'], color='#F44336', lw=1.4, label='路径0 丢包率')
-    ax.plot(t, d['path1_loss_pct'], color='#9C27B0', lw=1.4, label='路径1 丢包率')
-    ax.axhline(y=8.5, color='gray', ls='--', lw=0.8, label='k=4,m=2 保护上限(~8.5%)')
-    ax.set_ylabel('丢包率 (%)', fontsize=11)
+    ax.plot(t, d['path0_loss_pct'], color='#F44336', lw=1.4, label='Path 0 Loss')
+    ax.plot(t, d['path1_loss_pct'], color='#9C27B0', lw=1.4, label='Path 1 Loss')
+    ax.axhline(y=8.5, color='gray', ls='--', lw=0.8, label='k=4,m=2 protection limit (~8.5%)')
+    ax.set_ylabel('Loss Rate (%)', fontsize=11)
     ax.legend(fontsize=9, loc='upper right')
     ax.grid(True, alpha=0.3)
     ax.set_ylim(bottom=0)
@@ -110,8 +110,8 @@ def plot_channel_dynamics(d: dict, out_dir: str):
     _shade_phases(ax, t, phase)
     ax.plot(t, d['loss_correlation'], color='#607D8B', lw=1.4)
     ax.fill_between(t, 0, d['loss_correlation'], alpha=0.2, color='#607D8B')
-    ax.set_xlabel('时间 (s)', fontsize=11)
-    ax.set_ylabel('丢包相关性 ρ', fontsize=11)
+    ax.set_xlabel('Time (s)', fontsize=11)
+    ax.set_ylabel('Loss Correlation ρ', fontsize=11)
     ax.set_ylim(-0.05, 0.6)
     ax.grid(True, alpha=0.3)
 
@@ -120,7 +120,6 @@ def plot_channel_dynamics(d: dict, out_dir: str):
     fig.legend(handles=handles, loc='upper center', ncol=3, fontsize=9,
                bbox_to_anchor=(0.5, 0.965))
 
-    plt.tight_layout(rect=[0, 0, 1, 0.955])
     _save(fig, os.path.join(out_dir, 'channel_dynamics.png'))
 
 
@@ -133,15 +132,15 @@ def plot_oco_adaptation(d: dict, out_dir: str):
     # Actual redundancy ratio: m/k (discrete)
     actual_ovhd = d['oco_m'] / d['oco_k'] * 100.0
 
-    fig, axes = plt.subplots(3, 1, figsize=(12, 9), sharex=True)
-    fig.suptitle('图2: OCO 算法自适应过程', fontsize=14, fontweight='bold', y=0.98)
+    fig, axes = plt.subplots(3, 1, figsize=(12, 9), sharex=True, constrained_layout=True)
+    fig.suptitle('Figure 2: OCO Adaptation Process', fontsize=14, fontweight='bold')
 
     # — k/m step plot ————————————————————————————————————————————————————
     ax = axes[0]
     _shade_phases(ax, t, phase)
-    ax.step(t, d['oco_k'], where='post', color='#2196F3', lw=2.0, label='k (数据块数)')
-    ax.step(t, d['oco_m'], where='post', color='#F44336', lw=2.0, label='m (冗余块数)')
-    ax.set_ylabel('块数', fontsize=11)
+    ax.step(t, d['oco_k'], where='post', color='#2196F3', lw=2.0, label='k (source blocks)')
+    ax.step(t, d['oco_m'], where='post', color='#F44336', lw=2.0, label='m (repair blocks)')
+    ax.set_ylabel('Block Count', fontsize=11)
     ax.set_yticks([1, 2, 3, 4, 5, 8, 10])
     ax.legend(fontsize=10, loc='upper right')
     ax.grid(True, alpha=0.3)
@@ -150,15 +149,15 @@ def plot_oco_adaptation(d: dict, out_dir: str):
     ax = axes[1]
     _shade_phases(ax, t, phase)
     ax.step(t, actual_ovhd, where='post',
-            color='#4CAF50', lw=2.0, label='OCO 实际冗余率 (m/k × 100%)')
-    ax.axhline(y=50.0, color='#FF5722', ls='--', lw=1.5, label='静态 FEC 冗余率 (50%)')
+            color='#4CAF50', lw=2.0, label='OCO actual overhead (m/k × 100%)')
+    ax.axhline(y=50.0, color='#FF5722', ls='--', lw=1.5, label='Static FEC overhead (50%)')
     ax.fill_between(t, actual_ovhd, 50.0,
                     where=(actual_ovhd < 50.0),
-                    interpolate=True, alpha=0.15, color='green', label='节省带宽区域')
+                    interpolate=True, alpha=0.15, color='green', label='Bandwidth saving area')
     ax.fill_between(t, actual_ovhd, 50.0,
                     where=(actual_ovhd > 50.0),
-                    interpolate=True, alpha=0.15, color='red', label='额外开销区域')
-    ax.set_ylabel('冗余率 (%)', fontsize=11)
+                    interpolate=True, alpha=0.15, color='red', label='Extra overhead area')
+    ax.set_ylabel('Overhead (%)', fontsize=11)
     ax.set_ylim(-5, 120)
     ax.legend(fontsize=9, loc='upper right')
     ax.grid(True, alpha=0.3)
@@ -168,11 +167,11 @@ def plot_oco_adaptation(d: dict, out_dir: str):
     _shade_phases(ax, t, phase)
     oco_eff = d['oco_k'] / (d['oco_k'] + d['oco_m']) * 100.0
     ax.step(t, oco_eff, where='post',
-            color='#009688', lw=2.0, label=f'OCO 有效编码率  均值 {oco_eff.mean():.1f}%')
+            color='#009688', lw=2.0, label=f'OCO effective code rate  mean {oco_eff.mean():.1f}%')
     ax.axhline(y=100.0 * 4.0 / 6.0, color='#FF5722', ls='--', lw=1.5,
-               label=f'静态 FEC 有效编码率  固定 {100*4/6:.1f}%')
-    ax.set_xlabel('时间 (s)', fontsize=11)
-    ax.set_ylabel('有效编码率 (%)', fontsize=11)
+               label=f'Static FEC effective code rate  fixed {100*4/6:.1f}%')
+    ax.set_xlabel('Time (s)', fontsize=11)
+    ax.set_ylabel('Effective Code Rate (%)', fontsize=11)
     ax.set_ylim(40, 105)
     ax.legend(fontsize=10, loc='lower right')
     ax.grid(True, alpha=0.3)
@@ -181,7 +180,6 @@ def plot_oco_adaptation(d: dict, out_dir: str):
     fig.legend(handles=handles, loc='upper center', ncol=3, fontsize=9,
                bbox_to_anchor=(0.5, 0.965))
 
-    plt.tight_layout(rect=[0, 0, 1, 0.955])
     _save(fig, os.path.join(out_dir, 'oco_adaptation.png'))
 
 
@@ -198,18 +196,18 @@ def plot_performance_comparison(d: dict, out_dir: str):
     def smooth(x, w=10):
         return np.convolve(x, np.ones(w)/w, mode='same')
 
-    fig, axes = plt.subplots(2, 2, figsize=(14, 9))
-    fig.suptitle('图3: 性能对比分析', fontsize=14, fontweight='bold', y=0.98)
+    fig, axes = plt.subplots(2, 2, figsize=(14, 9), constrained_layout=True)
+    fig.suptitle('Figure 3: Performance Comparison', fontsize=14, fontweight='bold')
 
     # ── Top-left: recovery rate over time ───────────────────────────────
     ax = axes[0, 0]
     _shade_phases(ax, t, phase)
-    ax.plot(t, smooth(d['oco_recovery_pct']),    color='#4CAF50', lw=2.0, label='OCO 自适应')
-    ax.plot(t, smooth(d['static_recovery_pct']), color='#2196F3', lw=2.0, ls='--', label='静态 FEC')
-    ax.plot(t, smooth(d['nofec_recovery_pct']),  color='#F44336', lw=1.5, ls=':', label='无 FEC')
-    ax.set_title('恢复成功率（10步滑动均值）', fontsize=11)
-    ax.set_ylabel('恢复成功率 (%)', fontsize=10)
-    ax.set_xlabel('时间 (s)', fontsize=10)
+    ax.plot(t, smooth(d['oco_recovery_pct']),    color='#4CAF50', lw=2.0, label='OCO adaptive')
+    ax.plot(t, smooth(d['static_recovery_pct']), color='#2196F3', lw=2.0, ls='--', label='Static FEC')
+    ax.plot(t, smooth(d['nofec_recovery_pct']),  color='#F44336', lw=1.5, ls=':', label='No FEC')
+    ax.set_title('Recovery Success Rate (10-step rolling mean)', fontsize=11)
+    ax.set_ylabel('Recovery Success Rate (%)', fontsize=10)
+    ax.set_xlabel('Time (s)', fontsize=10)
     ax.set_ylim(50, 105)
     ax.legend(fontsize=9)
     ax.grid(True, alpha=0.3)
@@ -218,11 +216,11 @@ def plot_performance_comparison(d: dict, out_dir: str):
     ax = axes[0, 1]
     _shade_phases(ax, t, phase)
     actual_ovhd = d['oco_m'] / d['oco_k'] * 100.0
-    ax.step(t, actual_ovhd, where='post', color='#4CAF50', lw=2.0, label='OCO 实际冗余率')
-    ax.axhline(y=50.0, color='#2196F3', ls='--', lw=1.5, label='静态 FEC 冗余率 50%')
-    ax.set_title('FEC 冗余率（带宽开销）', fontsize=11)
-    ax.set_ylabel('冗余率 (%)', fontsize=10)
-    ax.set_xlabel('时间 (s)', fontsize=10)
+    ax.step(t, actual_ovhd, where='post', color='#4CAF50', lw=2.0, label='OCO actual overhead')
+    ax.axhline(y=50.0, color='#2196F3', ls='--', lw=1.5, label='Static FEC overhead 50%')
+    ax.set_title('FEC Overhead (Bandwidth Cost)', fontsize=11)
+    ax.set_ylabel('Overhead (%)', fontsize=10)
+    ax.set_xlabel('Time (s)', fontsize=10)
     ax.set_ylim(-5, 120)
     ax.legend(fontsize=9)
     ax.grid(True, alpha=0.3)
@@ -230,16 +228,16 @@ def plot_performance_comparison(d: dict, out_dir: str):
     # ── Bottom-left: per-phase bar chart ────────────────────────────────
     ax = axes[1, 0]
     phases = [1, 2, 3]
-    phase_names = ['阶段1\n良好信道', '阶段2\n信道恶化', '阶段3\n信道恢复']
+    phase_names = ['Phase 1\nGood', 'Phase 2\nDegraded', 'Phase 3\nRecovery']
     oco_by_phase  = [d['oco_recovery_pct'][phase == p].mean() for p in phases]
     stat_by_phase = [d['static_recovery_pct'][phase == p].mean() for p in phases]
     nofec_by_phase= [d['nofec_recovery_pct'][phase == p].mean() for p in phases]
 
     x = np.arange(len(phases))
     w = 0.25
-    ax.bar(x - w,   oco_by_phase,   w, color='#4CAF50', label='OCO 自适应', zorder=3)
-    ax.bar(x,       stat_by_phase,  w, color='#2196F3', label='静态 FEC',   zorder=3)
-    ax.bar(x + w,   nofec_by_phase, w, color='#F44336', label='无 FEC',     zorder=3)
+    ax.bar(x - w,   oco_by_phase,   w, color='#4CAF50', label='OCO adaptive', zorder=3)
+    ax.bar(x,       stat_by_phase,  w, color='#2196F3', label='Static FEC',   zorder=3)
+    ax.bar(x + w,   nofec_by_phase, w, color='#F44336', label='No FEC',       zorder=3)
     for xi, v in zip(x - w, oco_by_phase):
         ax.text(xi, v + 0.3, f'{v:.1f}%', ha='center', va='bottom', fontsize=7.5)
     for xi, v in zip(x, stat_by_phase):
@@ -248,8 +246,8 @@ def plot_performance_comparison(d: dict, out_dir: str):
         ax.text(xi, v + 0.3, f'{v:.1f}%', ha='center', va='bottom', fontsize=7.5)
     ax.set_xticks(x)
     ax.set_xticklabels(phase_names, fontsize=10)
-    ax.set_ylabel('平均恢复成功率 (%)', fontsize=10)
-    ax.set_title('各阶段平均恢复成功率', fontsize=11)
+    ax.set_ylabel('Average Recovery Success Rate (%)', fontsize=10)
+    ax.set_title('Average Recovery Rate by Phase', fontsize=11)
     ax.set_ylim(60, 107)
     ax.legend(fontsize=9)
     ax.grid(True, alpha=0.3, axis='y', zorder=0)
@@ -258,13 +256,13 @@ def plot_performance_comparison(d: dict, out_dir: str):
     ax = axes[1, 1]
     # Plot scatter: each step is one point
     sc = ax.scatter(actual_ovhd, d['oco_recovery_pct'],
-                    c=t, cmap='plasma', s=12, alpha=0.6, label='OCO 各时步', zorder=3)
+                    c=t, cmap='plasma', s=12, alpha=0.6, label='OCO steps', zorder=3)
     # Static reference point
     ax.scatter([50.0], [d['static_recovery_pct'].mean()],
-               marker='*', s=200, color='#2196F3', zorder=5, label=f'静态 FEC 均值')
+               marker='*', s=200, color='#2196F3', zorder=5, label='Static FEC mean')
     # OCO mean
     ax.scatter([actual_ovhd.mean()], [d['oco_recovery_pct'].mean()],
-               marker='D', s=100, color='#4CAF50', zorder=5, label=f'OCO 均值')
+               marker='D', s=100, color='#4CAF50', zorder=5, label='OCO mean')
     ax.annotate(f'Static\n({50.0:.0f}%, {d["static_recovery_pct"].mean():.1f}%)',
                 xy=(50.0, d['static_recovery_pct'].mean()),
                 xytext=(55, d['static_recovery_pct'].mean() - 4),
@@ -275,14 +273,13 @@ def plot_performance_comparison(d: dict, out_dir: str):
                 xytext=(actual_ovhd.mean() + 8, d['oco_recovery_pct'].mean() - 5),
                 fontsize=8, color='#4CAF50',
                 arrowprops=dict(arrowstyle='->', color='#4CAF50', lw=0.8))
-    plt.colorbar(sc, ax=ax, label='时间步 (s)', shrink=0.8)
-    ax.set_xlabel('FEC 冗余率 / 带宽开销 (%)', fontsize=10)
-    ax.set_ylabel('恢复成功率 (%)', fontsize=10)
-    ax.set_title('权衡曲线：开销 vs 恢复率', fontsize=11)
+    plt.colorbar(sc, ax=ax, label='Time step (s)', shrink=0.8)
+    ax.set_xlabel('FEC Overhead / Bandwidth Cost (%)', fontsize=10)
+    ax.set_ylabel('Recovery Success Rate (%)', fontsize=10)
+    ax.set_title('Tradeoff Curve: Overhead vs Recovery', fontsize=11)
     ax.legend(fontsize=8, loc='lower right')
     ax.grid(True, alpha=0.3)
 
-    plt.tight_layout()
     _save(fig, os.path.join(out_dir, 'performance_comparison.png'))
 
 
